@@ -29,7 +29,10 @@ function handleChange(e){
 
 //send data to backend
 function handleSubmit(e) {
- e.preventDefault(); 
+ e.preventDefault();
+ const updatedFormData={...formData,interests:formData.interests.split(',').map(function(i){
+  return i.trim();
+ })} 
  //page resubmit prevent
 
  //fetch...sends the new card data to backend and after submission it refetches all cards to render the new updated list using setBusinessCard...
@@ -38,7 +41,7 @@ fetch("http://localhost:3000/card",{
   headers:{
     "Content-Type":"application/json"
   },
-  body: JSON.stringify(formData),
+  body: JSON.stringify(updatedFormData),
   }).then(()=>{
     fetch("http://localhost:3000/card")
     .then(res => res.json())
